@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import React from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, DollarSign } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -76,6 +76,9 @@ export function SignupForm() {
   return (
     <Card className="w-full max-w-md shadow-2xl">
       <CardHeader className="text-center">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary [perspective:800px]">
+          <DollarSign className="h-10 w-10 animate-spin-y-360" />
+        </div>
         <div className="mx-auto mb-4">
             <Logo />
         </div>

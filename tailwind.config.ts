@@ -95,10 +95,15 @@ export default {
             height: '0',
           },
         },
+        'spin-y-360': {
+          '0%': { transform: 'rotateY(0deg)' },
+          '100%': { transform: 'rotateY(360deg)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'spin-y-360': 'spin-y-360 2s linear infinite',
       },
     },
   },
