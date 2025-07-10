@@ -21,7 +21,17 @@ import { useTheme } from "next-themes";
 
 export function UserNav() {
   const router = useRouter();
-  const { setTheme } = useTheme()
+  const { setTheme } = useTheme();
+
+  const userName = "John Doe";
+  const userEmail = "admin@example.com";
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('');
+  };
 
   return (
     <DropdownMenu>
@@ -29,16 +39,16 @@ export function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
             <AvatarImage src="https://placehold.co/40x40.png" alt="@shadcn" data-ai-hint="user avatar" />
-            <AvatarFallback>JD</AvatarFallback>
+            <AvatarFallback>{getInitials(userName)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
+            <p className="text-sm font-medium leading-none">{userName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              admin@example.com
+              {userEmail}
             </p>
           </div>
         </DropdownMenuLabel>
