@@ -53,10 +53,12 @@ export function LoginForm() {
     await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
     setIsLoading(false);
 
+    // For prototyping, we'll use a hardcoded user.
+    // In a real application, you would call your backend API here.
     if (values.email === "admin@example.com" && values.password === "password") {
       toast({
         title: "Login Successful",
-        description: "Welcome back!",
+        description: "Welcome back! Redirecting to your dashboard.",
       });
       router.push("/dashboard");
     } else {
