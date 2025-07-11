@@ -14,11 +14,12 @@ import { Logo } from "@/components/icons";
 import { Header } from "@/components/dashboard/header";
 import { 
   LayoutDashboard, 
-  Ticket, 
-  TicketPercent,
-  PlayCircle,
-  Users,
-  Scale,
+  User,
+  TrendingUp,
+  Coins,
+  Wallet,
+  Gift,
+  Award,
   Settings 
 } from "lucide-react";
 
@@ -48,40 +49,48 @@ export default function DashboardLayout({
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <Ticket />
-                  Tokens
+                  <User />
+                  Profile Page
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <TicketPercent />
-                  Vouchers
+                  <TrendingUp />
+                  Investment
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <PlayCircle />
-                  Academy
+                  <Coins />
+                  LX Utility Token
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <Users />
-                  Affiliate
+                  <Wallet />
+                  Deposit Funds
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <Scale />
-                  Governance
+                  <Gift />
+                  Referral Program
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <Award />
+                  Redeem Token
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
