@@ -12,7 +12,15 @@ import {
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/icons";
 import { Header } from "@/components/dashboard/header";
-import { LayoutDashboard, Coins, Settings } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  Ticket, 
+  TicketPercent,
+  PlayCircle,
+  Users,
+  Scale,
+  Settings 
+} from "lucide-react";
 
 export default function DashboardLayout({
   children,
@@ -23,7 +31,9 @@ export default function DashboardLayout({
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <Logo />
+          <div className="p-2">
+            <Logo />
+          </div>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
@@ -38,11 +48,47 @@ export default function DashboardLayout({
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <Coins />
-                  Token Management
+                  <Ticket />
+                  Tokens
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <TicketPercent />
+                  Vouchers
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <PlayCircle />
+                  Academy
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <Users />
+                  Affiliate
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <Scale />
+                  Governance
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarContent>
+        <SidebarHeader>
+           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
@@ -52,10 +98,10 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-        </SidebarContent>
+        </SidebarHeader>
       </Sidebar>
       <SidebarInset>
-        <div className="flex min-h-screen w-full flex-col">
+        <div className="flex min-h-screen w-full flex-col bg-muted/40">
           <Header />
           {children}
         </div>
