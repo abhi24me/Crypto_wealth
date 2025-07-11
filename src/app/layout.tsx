@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: 'WealthFrontier Access',
+  title: 'Crypto Wealth Access',
   description: 'Modern crypto wealth management platform',
 };
 

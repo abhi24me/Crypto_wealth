@@ -45,7 +45,7 @@ export function Logo() {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="font-headline text-xl font-bold">WealthFrontier</span>
+      <span className="font-headline text-xl font-bold">Crypto Wealth</span>
     </div>
   );
 }
