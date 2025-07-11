@@ -14,6 +14,7 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/icons";
+import { Header } from "@/components/dashboard/header";
 import { 
   LayoutDashboard, 
   User,
