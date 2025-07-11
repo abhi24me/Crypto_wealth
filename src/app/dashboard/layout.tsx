@@ -84,8 +84,8 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton asChild isActive={pathname === "/dashboard/referral"}>
+                <Link href="/dashboard/referral">
                   <Gift />
                   Referral Program
                 </Link>
