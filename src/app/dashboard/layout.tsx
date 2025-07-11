@@ -76,8 +76,8 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton asChild isActive={pathname === "/dashboard/deposit"}>
+                <Link href="/dashboard/deposit">
                   <Wallet />
                   Deposit Funds
                 </Link>
