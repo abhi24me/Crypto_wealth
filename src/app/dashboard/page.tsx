@@ -40,7 +40,7 @@ const recentActivity = [
 export default function DashboardPage() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">LX Token Balance</CardTitle>
@@ -87,30 +87,38 @@ export default function DashboardPage() {
       <div>
         <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
         <Card>
-          <Table>
-            <TableBody>
-              {recentActivity.map((activity, index) => (
-                <TableRow key={index} className="[&_td]:py-4">
-                  <TableCell className="w-1/4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-muted rounded-full">
-                        {activity.icon}
+          <div className="overflow-x-auto">
+            <Table>
+              <TableBody>
+                {recentActivity.map((activity, index) => (
+                  <TableRow key={index} className="[&_td]:py-4">
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-muted rounded-full">
+                          {activity.icon}
+                        </div>
+                        <div>
+                          <p className="font-medium">{activity.type}</p>
+                          <p className="text-muted-foreground text-sm md:hidden">{activity.time}</p>
+                        </div>
                       </div>
-                      <span className="font-medium">{activity.type}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground w-1/4">{activity.time}</TableCell>
-                   <TableCell className="w-1/4">
-                    <div className="flex items-center gap-3">
-                        {activity.detailsIcon}
-                      <span className="font-medium">{activity.details}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right text-muted-foreground w-1/4">{activity.detailsTime}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground hidden md:table-cell">{activity.time}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                          {activity.detailsIcon}
+                        <div>
+                           <p className="font-medium">{activity.details}</p>
+                           <p className="text-right text-muted-foreground text-sm md:hidden">{activity.detailsTime}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right text-muted-foreground hidden md:table-cell">{activity.detailsTime}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </Card>
       </div>
     </main>
