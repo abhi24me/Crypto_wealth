@@ -46,23 +46,12 @@ const twoFactorSchema = z.object({
   code: z.string().min(6, { message: "Your code must be 6 digits." }),
 });
 
-type OTPInputRef = React.ElementRef<typeof InputOTP>;
-
 export function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const [showTwoFactor, setShowTwoFactor] = React.useState(false);
   const formRef = React.useRef<HTMLFormElement>(null);
-  const otpInputRef = React.useRef<OTPInputRef>(null);
-
-  React.useEffect(() => {
-    if (showTwoFactor && otpInputRef.current) {
-      setTimeout(() => {
-        otpInputRef.current?.focus();
-      }, 0);
-    }
-  }, [showTwoFactor]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -148,7 +137,6 @@ export function LoginForm() {
                       <FormLabel className="sr-only">Authentication Code</FormLabel>
                       <FormControl>
                         <InputOTP
-                          ref={otpInputRef}
                           maxLength={6} 
                           {...field}
                           onComplete={() => {

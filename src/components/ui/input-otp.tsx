@@ -10,19 +10,40 @@ import { cn } from "@/lib/utils"
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
   OTPInputProps
->(({ className, containerClassName, children, ...props }, ref) => (
-  <OTPInput
-    ref={ref}
-    containerClassName={cn(
-      "flex items-center gap-2 has-[:disabled]:opacity-50",
-      containerClassName
-    )}
-    className={cn("disabled:cursor-not-allowed", className)}
-    {...props}
-  >
-    {children}
-  </OTPInput>
-))
+>(({ className, containerClassName, children, ...props }, ref) => {
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+  
+  return (
+    <OTPInput
+      ref={ref}
+      containerClassName={cn(
+        "flex items-center gap-2 has-[:disabled]:opacity-50",
+        containerClassName
+      )}
+      className={cn("disabled:cursor-not-allowed", className)}
+      {...props}
+      render={({ slots }) => (
+        <>
+          <div className="flex">
+            {slots.slice(0, 3).map((slot, idx) => (
+              <InputOTPSlot key={idx} {...slot} />
+            ))}
+          </div>
+          <InputOTPSeparator />
+          <div className="flex">
+            {slots.slice(3).map((slot, idx) => (
+              <InputOTPSlot key={idx} {...slot} />
+            ))}
+          </div>
+        </>
+      )}
+    />
+  )
+})
 InputOTP.displayName = "InputOTP"
 
 const InputOTPGroup = React.forwardRef<
@@ -35,11 +56,8 @@ InputOTPGroup.displayName = "InputOTPGroup"
 
 const InputOTPSlot = React.forwardRef<
   React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & { index: number }
->(({ index, className, ...props }, ref) => {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
-
+  React.ComponentPropsWithoutRef<"div"> & { isActive: boolean, char: string | null, hasFakeCaret: boolean }
+>(({ isActive, char, hasFakeCaret, className, ...props }, ref) => {
   return (
     <div
       ref={ref}
