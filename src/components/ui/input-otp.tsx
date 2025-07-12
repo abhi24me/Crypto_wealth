@@ -58,6 +58,7 @@ const InputOTPSlot = React.forwardRef<
   React.ElementRef<"div">,
   React.ComponentPropsWithoutRef<"div"> & { isActive: boolean, char: string | null, hasFakeCaret: boolean }
 >(({ isActive, char, hasFakeCaret, className, ...props }, ref) => {
+  const { placeholderChar, ...rest } = props;
   return (
     <div
       ref={ref}
@@ -66,7 +67,7 @@ const InputOTPSlot = React.forwardRef<
         isActive && "z-10 ring-2 ring-ring ring-offset-background",
         className
       )}
-      {...props}
+      {...rest}
     >
       {char}
       {hasFakeCaret && (
