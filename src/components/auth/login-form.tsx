@@ -49,6 +49,7 @@ export function LoginForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const [showTwoFactor, setShowTwoFactor] = React.useState(false);
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -120,7 +121,11 @@ export function LoginForm() {
       <CardContent>
         {showTwoFactor ? (
           <Form {...twoFactorForm}>
-            <form onSubmit={twoFactorForm.handleSubmit(onTwoFactorSubmit)} className="space-y-6">
+            <form 
+              ref={formRef} 
+              onSubmit={twoFactorForm.handleSubmit(onTwoFactorSubmit)} 
+              className="space-y-6"
+            >
               <div className="flex justify-center">
                 <FormField
                   control={twoFactorForm.control}
@@ -129,7 +134,14 @@ export function LoginForm() {
                     <FormItem>
                       <FormLabel className="sr-only">Authentication Code</FormLabel>
                       <FormControl>
-                        <InputOTP maxLength={6} {...field}>
+                        <InputOTP 
+                          maxLength={6} 
+                          {...field}
+                          onComplete={() => {
+                            // Trigger form submission programmatically
+                            formRef.current?.requestSubmit();
+                          }}
+                        >
                           <InputOTPGroup>
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
