@@ -1,9 +1,6 @@
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter
@@ -17,13 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { KxIndexChartSkeleton } from "@/components/dashboard/kx-index-chart-skeleton";
-import { ArrowUpRight, RefreshCw, ArrowRight, TrendingUp } from "lucide-react";
-
-const KxIndexChart = dynamic(() => import('@/components/dashboard/kx-index-chart').then(mod => mod.KxIndexChart), {
-  ssr: false,
-  loading: () => <KxIndexChartSkeleton />,
-});
+import { KxIndexChartDynamic } from "@/components/dashboard/kx-index-chart-dynamic";
+import { ArrowRight, RefreshCw, TrendingUp } from "lucide-react";
 
 const recentActivity = [
   {
@@ -74,9 +66,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <div className="lg:col-span-7">
-          <Suspense fallback={<KxIndexChartSkeleton />}>
-            <KxIndexChart />
-          </Suspense>
+            <KxIndexChartDynamic />
         </div>
         <Card className="lg:col-span-3">
           <CardHeader>
