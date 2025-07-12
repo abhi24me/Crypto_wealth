@@ -52,14 +52,13 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [showTwoFactor, setShowTwoFactor] = React.useState(false);
   const formRef = React.useRef<HTMLFormElement>(null);
-
+  
   React.useEffect(() => {
     if (showTwoFactor) {
       setTimeout(() => {
-        // This is a more robust way to focus, by directly accessing the DOM element.
-        const otpInput = document.getElementById("otp-input");
-        if (otpInput) {
-          otpInput.focus();
+        const input = document.getElementById("otp-input");
+        if (input) {
+          input.focus();
         }
       }, 0);
     }
