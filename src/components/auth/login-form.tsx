@@ -57,7 +57,7 @@ export function LoginForm() {
   const otpInputRef = React.useRef<OTPInputRef>(null);
 
   React.useEffect(() => {
-    if (showTwoFactor) {
+    if (showTwoFactor && otpInputRef.current) {
       setTimeout(() => {
         otpInputRef.current?.focus();
       }, 0);
@@ -147,12 +147,11 @@ export function LoginForm() {
                     <FormItem>
                       <FormLabel className="sr-only">Authentication Code</FormLabel>
                       <FormControl>
-                        <InputOTP 
+                        <InputOTP
                           ref={otpInputRef}
                           maxLength={6} 
                           {...field}
                           onComplete={() => {
-                            // Trigger form submission programmatically
                             formRef.current?.requestSubmit();
                           }}
                         >
