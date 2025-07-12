@@ -64,10 +64,11 @@ export default function DashboardPage() {
         </Card>
       </div>
 
+      <div className="grid gap-4 md:grid-cols-1">
+        <KxIndexChartDynamic />
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <div className="lg:col-span-7">
-            <KxIndexChartDynamic />
-        </div>
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Stake Tokens</CardTitle>
@@ -76,43 +77,44 @@ export default function DashboardPage() {
              <Button size="lg" className="w-full">Stake Tokens</Button>
           </CardContent>
         </Card>
-      </div>
-
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-        <Card>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableBody>
-                {recentActivity.map((activity, index) => (
-                  <TableRow key={index} className="[&_td]:py-4">
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-muted rounded-full">
-                          {activity.icon}
+        <Card className="lg:col-span-4">
+          <CardHeader>
+             <CardTitle>Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableBody>
+                  {recentActivity.map((activity, index) => (
+                    <TableRow key={index} className="[&_td]:py-4">
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-muted rounded-full">
+                            {activity.icon}
+                          </div>
+                          <div>
+                            <p className="font-medium">{activity.type}</p>
+                            <p className="text-muted-foreground text-sm md:hidden">{activity.time}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-medium">{activity.type}</p>
-                          <p className="text-muted-foreground text-sm md:hidden">{activity.time}</p>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground hidden md:table-cell">{activity.time}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                            {activity.detailsIcon}
+                          <div>
+                            <p className="font-medium">{activity.details}</p>
+                            <p className="text-right text-muted-foreground text-sm md:hidden">{activity.detailsTime}</p>
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground hidden md:table-cell">{activity.time}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                          {activity.detailsIcon}
-                        <div>
-                           <p className="font-medium">{activity.details}</p>
-                           <p className="text-right text-muted-foreground text-sm md:hidden">{activity.detailsTime}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right text-muted-foreground hidden md:table-cell">{activity.detailsTime}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground hidden md:table-cell">{activity.detailsTime}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
         </Card>
       </div>
     </main>
