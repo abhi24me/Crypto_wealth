@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Loader2, DollarSign } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { LxTxIcon } from "@/components/icons";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
@@ -121,7 +122,7 @@ export function LoginForm() {
     <Card className="w-full max-w-md shadow-2xl">
       <CardHeader className="text-center">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary [perspective:800px]">
-          <DollarSign className="h-10 w-10 animate-spin-y-360" />
+          <LxTxIcon />
         </div>
         <div className="mx-auto mb-4">
             <Logo />
@@ -224,14 +225,16 @@ export function LoginForm() {
           </Form>
         )}
       </CardContent>
-      <CardFooter className="flex justify-center text-sm">
-        <p>
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="font-bold text-primary hover:underline">
-            Sign up
-          </Link>
-        </p>
-      </CardFooter>
+      {!showTwoFactor && (
+        <CardFooter className="flex justify-center text-sm">
+            <p>
+            Don&apos;t have an account?{" "}
+            <Link href="/signup" className="font-bold text-primary hover:underline">
+                Sign up
+            </Link>
+            </p>
+        </CardFooter>
+      )}
     </Card>
   );
 }

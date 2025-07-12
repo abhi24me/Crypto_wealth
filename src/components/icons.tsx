@@ -50,6 +50,19 @@ export function Logo() {
   );
 }
 
+export function LxTxIcon() {
+    return (
+      <div className="relative h-10 w-10 animate-spin-y-360 [transform-style:preserve-3d]">
+        <div className="absolute flex h-full w-full items-center justify-center rounded-full bg-primary/20 [backface-visibility:hidden]">
+          <span className="text-xl font-bold text-primary">LX</span>
+        </div>
+        <div className="absolute flex h-full w-full items-center justify-center rounded-full bg-primary/20 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <span className="text-xl font-bold text-primary">TX</span>
+        </div>
+      </div>
+    );
+  }
+
 export function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
