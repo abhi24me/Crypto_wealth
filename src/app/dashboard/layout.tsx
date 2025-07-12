@@ -1,8 +1,4 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -31,7 +27,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   
   return (
     <SidebarProvider>
@@ -44,59 +39,45 @@ export default function DashboardLayout({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === "/dashboard"}>
-                <Link href="/dashboard">
+              <SidebarMenuButton href="/dashboard" pathname="/dashboard">
                   <LayoutDashboard />
                   Dashboard
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === "/dashboard/profile"}>
-                <Link href="/dashboard/profile">
+              <SidebarMenuButton href="/dashboard/profile" pathname="/dashboard/profile">
                   <User />
                   Profile Page
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton href="#">
                   <TrendingUp />
                   Investment
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton href="#">
                   <Coins />
                   LX Utility Token
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === "/dashboard/deposit"}>
-                <Link href="/dashboard/deposit">
+               <SidebarMenuButton href="/dashboard/deposit" pathname="/dashboard/deposit">
                   <Wallet />
                   Deposit Funds
-                </Link>
-              </SidebarMenuButton>
+               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === "/dashboard/referral"}>
-                <Link href="/dashboard/referral">
+              <SidebarMenuButton href="/dashboard/referral" pathname="/dashboard/referral">
                   <Gift />
                   Referral Program
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton href="#">
                   <Award />
                   Redeem Token
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -104,11 +85,9 @@ export default function DashboardLayout({
         <SidebarHeader>
            <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="#">
+              <SidebarMenuButton href="#">
                   <Settings />
                   Settings
-                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

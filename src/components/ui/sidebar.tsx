@@ -4,6 +4,8 @@ import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -224,6 +226,7 @@ const Sidebar = React.forwardRef<
         <div
           className={cn(
             "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
+            "group-data-[collapsible=icon]:w-[--sidebar-width-icon]",
             "group-data-[collapsible=offcanvas]:w-0",
             "group-data-[side=right]:rotate-180",
             variant === "floating" || variant === "inset"
@@ -533,31 +536,40 @@ const sidebarMenuButtonVariants = cva(
 )
 
 const SidebarMenuButton = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<"button"> & {
+  HTMLAnchorElement,
+  React.ComponentProps<typeof Link> & {
     asChild?: boolean
     isActive?: boolean
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
-  } & VariantProps<typeof sidebarMenuButtonVariants>
+    variant?: VariantProps<typeof sidebarMenuButtonVariants>['variant']
+    size?: VariantProps<typeof sidebarMenuButtonVariants>['size']
+    pathname?: string;
+    href: string;
+  }
 >(
   (
     {
       asChild = false,
-      isActive = false,
+      isActive: isActiveProp,
       variant = "default",
       size = "default",
       tooltip,
       className,
+      pathname: pathnameProp,
+      href,
       ...props
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button"
-    const { isMobile, state } = useSidebar()
+    const Comp = asChild ? Slot : Link;
+    const { isMobile, state } = useSidebar();
+    const pathname = usePathname();
+    const isActive = isActiveProp ?? pathname === href;
 
     const button = (
       <Comp
         ref={ref}
+        href={href}
         data-sidebar="menu-button"
         data-size={size}
         data-active={isActive}
@@ -566,8 +578,12 @@ const SidebarMenuButton = React.forwardRef<
       />
     )
 
-    if (!tooltip) {
+    if (!tooltip && state === "expanded") {
       return button
+    }
+    
+    if (typeof tooltip !== 'string' && state === 'collapsed') {
+      tooltip = props.children?.toString() || '';
     }
 
     if (typeof tooltip === "string") {
@@ -590,6 +606,7 @@ const SidebarMenuButton = React.forwardRef<
   }
 )
 SidebarMenuButton.displayName = "SidebarMenuButton"
+
 
 const SidebarMenuAction = React.forwardRef<
   HTMLButtonElement,
