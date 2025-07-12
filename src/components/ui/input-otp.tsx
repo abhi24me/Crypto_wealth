@@ -9,44 +9,17 @@ import { cn } from "@/lib/utils"
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
   React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, containerClassName, ...props }, ref) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [isFocused, setIsFocused] = React.useState(false);
-
-  React.useEffect(() => {
-    if (inputRef.current && !isFocused) {
-      inputRef.current.focus();
-      setIsFocused(true);
-    }
-  }, [isFocused]);
-
-  return (
-    <OTPInput
-      ref={ref}
-      render={({ slots }) => (
-        <>
-          <div className="flex">
-            {slots.slice(0, 3).map((slot, idx) => (
-              <InputOTPSlot key={idx} {...slot} />
-            ))}
-          </div>
-          <InputOTPSeparator />
-          <div className="flex">
-            {slots.slice(3).map((slot, idx) => (
-              <InputOTPSlot key={idx} {...slot} />
-            ))}
-          </div>
-        </>
-      )}
-      containerClassName={cn(
-        "flex items-center gap-2 has-[:disabled]:opacity-50",
-        containerClassName
-      )}
-      className={cn("disabled:cursor-not-allowed", className)}
-      {...props}
-    />
-  )
-});
+>(({ className, containerClassName, ...props }, ref) => (
+  <OTPInput
+    ref={ref}
+    containerClassName={cn(
+      "flex items-center gap-2 has-[:disabled]:opacity-50",
+      containerClassName
+    )}
+    className={cn("disabled:cursor-not-allowed", className)}
+    {...props}
+  />
+))
 InputOTP.displayName = "InputOTP"
 
 const InputOTPGroup = React.forwardRef<
