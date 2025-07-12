@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -51,6 +52,15 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [showTwoFactor, setShowTwoFactor] = React.useState(false);
   const formRef = React.useRef<HTMLFormElement>(null);
+  const otpInputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (showTwoFactor) {
+      setTimeout(() => {
+        otpInputRef.current?.focus();
+      }, 0);
+    }
+  }, [showTwoFactor]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -138,22 +148,23 @@ export function LoginForm() {
                         <InputOTP 
                           maxLength={6} 
                           {...field}
+                          render={({ slots }) => (
+                            <InputOTPGroup>
+                              {slots.slice(0, 3).map((slot, index) => (
+                                <InputOTPSlot key={index} {...slot} />
+                              ))}
+                              <InputOTPSeparator />
+                              {slots.slice(3).map((slot, index) => (
+                                <InputOTPSlot key={index + 3} {...slot} />
+                              ))}
+                            </InputOTPGroup>
+                          )}
                           onComplete={() => {
                             // Trigger form submission programmatically
                             formRef.current?.requestSubmit();
                           }}
                         >
-                          <InputOTPGroup>
-                            <InputOTPSlot index={0} />
-                            <InputOTPSlot index={1} />
-                            <InputOTPSlot index={2} />
-                          </InputOTPGroup>
-                           <InputOTPSeparator />
-                          <InputOTPGroup>
-                            <InputOTPSlot index={3} />
-                            <InputOTPSlot index={4} />
-                            <InputOTPSlot index={5} />
-                          </InputOTPGroup>
+                          <input ref={otpInputRef} />
                         </InputOTP>
                       </FormControl>
                       <FormMessage />
