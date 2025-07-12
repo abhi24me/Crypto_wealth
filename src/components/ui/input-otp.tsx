@@ -10,29 +10,19 @@ import { cn } from "@/lib/utils"
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
   OTPInputProps
->(({ className, containerClassName, children, ...props }, ref) => {
-  const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null)
-  
-  React.useImperativeHandle(ref, () => {
-    return {
-      focus: () => inputRef?.focus(),
-    } as any
-  }, [inputRef])
-
-  return (
-    <OTPInput
-      ref={setInputRef}
-      containerClassName={cn(
-        "flex items-center gap-2 has-[:disabled]:opacity-50",
-        containerClassName
-      )}
-      className={cn("disabled:cursor-not-allowed", className)}
-      {...props}
-    >
-      {children}
-    </OTPInput>
-  )
-})
+>(({ className, containerClassName, children, ...props }, ref) => (
+  <OTPInput
+    ref={ref}
+    containerClassName={cn(
+      "flex items-center gap-2 has-[:disabled]:opacity-50",
+      containerClassName
+    )}
+    className={cn("disabled:cursor-not-allowed", className)}
+    {...props}
+  >
+    {children}
+  </OTPInput>
+))
 InputOTP.displayName = "InputOTP"
 
 const InputOTPGroup = React.forwardRef<

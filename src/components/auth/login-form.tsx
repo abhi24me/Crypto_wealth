@@ -146,25 +146,25 @@ export function LoginForm() {
                       <FormLabel className="sr-only">Authentication Code</FormLabel>
                       <FormControl>
                         <InputOTP 
+                          ref={otpInputRef}
                           maxLength={6} 
                           {...field}
-                          render={({ slots }) => (
-                            <InputOTPGroup>
-                              {slots.slice(0, 3).map((slot, index) => (
-                                <InputOTPSlot key={index} {...slot} />
-                              ))}
-                              <InputOTPSeparator />
-                              {slots.slice(3).map((slot, index) => (
-                                <InputOTPSlot key={index + 3} {...slot} />
-                              ))}
-                            </InputOTPGroup>
-                          )}
                           onComplete={() => {
                             // Trigger form submission programmatically
                             formRef.current?.requestSubmit();
                           }}
                         >
-                          <input ref={otpInputRef} />
+                           <InputOTPGroup>
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator />
+                            <InputOTPGroup>
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                          </InputOTPGroup>
                         </InputOTP>
                       </FormControl>
                       <FormMessage />
