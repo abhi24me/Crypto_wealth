@@ -23,8 +23,21 @@ const InputOTP = React.forwardRef<
   return (
     <OTPInput
       ref={ref}
-      // @ts-ignore
-      inputRef={inputRef}
+      render={({ slots }) => (
+        <>
+          <div className="flex">
+            {slots.slice(0, 3).map((slot, idx) => (
+              <InputOTPSlot key={idx} {...slot} />
+            ))}
+          </div>
+          <InputOTPSeparator />
+          <div className="flex">
+            {slots.slice(3).map((slot, idx) => (
+              <InputOTPSlot key={idx} {...slot} />
+            ))}
+          </div>
+        </>
+      )}
       containerClassName={cn(
         "flex items-center gap-2 has-[:disabled]:opacity-50",
         containerClassName
