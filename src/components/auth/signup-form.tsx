@@ -66,8 +66,9 @@ export function SignupForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-    setIsLoading(false);
+    
+    // This is where a real API call would happen
+    // For the prototype, we'll just show a success message
     
     toast({
         title: "Account Created",
@@ -75,6 +76,7 @@ export function SignupForm() {
     });
 
     router.push("/");
+    setIsLoading(false);
   }
 
   return (

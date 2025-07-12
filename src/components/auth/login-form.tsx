@@ -67,9 +67,8 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000)); 
-    setIsLoading(false);
-
+    
+    // Simulate a quick check
     if (values.email === "admin@example.com" && values.password === "Password123!") {
       setShowTwoFactor(true);
     } else {
@@ -79,13 +78,12 @@ export function LoginForm() {
             description: "Invalid email or password. Please try again.",
         });
     }
+    setIsLoading(false);
   }
 
   async function onTwoFactorSubmit(values: z.infer<typeof twoFactorSchema>) {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
-
+    
     // In a real app, you'd verify the 2FA code with your backend.
     // For this prototype, any 6-digit code will work.
     if (values.code === "123456") {
@@ -102,6 +100,7 @@ export function LoginForm() {
       });
       twoFactorForm.reset();
     }
+    setIsLoading(false);
   }
 
   return (

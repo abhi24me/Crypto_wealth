@@ -1,4 +1,3 @@
-// This file path is new
 "use client";
 
 import * as React from "react";
@@ -43,8 +42,8 @@ export default function DepositPage() {
 
   const handlePayment = async () => {
     setIsProcessing(true);
-    // Simulate transaction processing
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // Simulate a quick transaction processing
+    await new Promise((resolve) => setTimeout(resolve, 500));
     setIsProcessing(false);
     handleNext();
   };
@@ -142,7 +141,7 @@ export default function DepositPage() {
                     <CardContent className="p-4 pt-0 text-sm space-y-2">
                         <div className="flex justify-between"><span>Amount:</span> <span className="font-medium">${formData.amount}.00</span></div>
                         <div className="flex justify-between"><span>Network Fee:</span> <span className="font-medium">$1.50</span></div>
-                        <div className="flex justify-between font-bold"><span>Total:</span> <span>${formData.amount + 1.5}.00</span></div>
+                        <div className="flex justify-between font-bold"><span>Total:</span> <span>${Number(formData.amount) + 1.5}.00</span></div>
                     </CardContent>
                  </Card>
               </CardContent>
