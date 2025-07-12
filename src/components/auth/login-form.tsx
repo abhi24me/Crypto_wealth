@@ -53,6 +53,18 @@ export function LoginForm() {
   const [showTwoFactor, setShowTwoFactor] = React.useState(false);
   const formRef = React.useRef<HTMLFormElement>(null);
 
+  React.useEffect(() => {
+    if (showTwoFactor) {
+      setTimeout(() => {
+        // This is a more robust way to focus, by directly accessing the DOM element.
+        const otpInput = document.getElementById("otp-input");
+        if (otpInput) {
+          otpInput.focus();
+        }
+      }, 0);
+    }
+  }, [showTwoFactor]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -137,6 +149,7 @@ export function LoginForm() {
                       <FormLabel className="sr-only">Authentication Code</FormLabel>
                       <FormControl>
                         <InputOTP
+                          id="otp-input"
                           maxLength={6} 
                           {...field}
                           onComplete={() => {
