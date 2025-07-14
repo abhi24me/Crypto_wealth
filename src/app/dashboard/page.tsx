@@ -39,83 +39,95 @@ const recentActivity = [
 export default function DashboardPage() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">LX Token Balance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">0</div>
-          </CardContent>
-          <CardFooter>
-            <Button>Buy LX</Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">Voucher Value</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">$0</div>
-          </CardContent>
-          <CardFooter>
-            <Button variant="secondary">Convert to Voucher</Button>
-          </CardFooter>
-        </Card>
-      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+        {/* Top Row Cards */}
+        <div className="lg:col-span-3">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">LX Token Balance</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold">0</div>
+              </CardContent>
+              <CardFooter>
+                <Button>Buy LX</Button>
+              </CardFooter>
+            </Card>
+        </div>
+        <div className="lg:col-span-3">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">Voucher Value</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold">$0</div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="secondary">Convert to Voucher</Button>
+              </CardFooter>
+            </Card>
+        </div>
+        
+        {/* Empty columns for spacing on large screens */}
+        <div className="hidden lg:block lg:col-span-6"></div>
+        
+        {/* Main Chart */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-12">
+            <KxIndexChartDynamic />
+        </div>
 
-      <div className="grid gap-4 md:grid-cols-1">
-        <KxIndexChartDynamic />
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle>Stake Tokens</CardTitle>
-          </CardHeader>
-          <CardContent className="flex items-center justify-center p-6">
-             <Button size="lg" className="w-full">Stake Tokens</Button>
-          </CardContent>
-        </Card>
-        <Card className="lg:col-span-4">
-          <CardHeader>
-             <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <Table>
-                <TableBody>
-                  {recentActivity.map((activity, index) => (
-                    <TableRow key={index} className="[&_td]:py-4">
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-muted rounded-full">
-                            {activity.icon}
-                          </div>
-                          <div>
-                            <p className="font-medium">{activity.type}</p>
-                            <p className="text-muted-foreground text-sm md:hidden">{activity.time}</p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground hidden md:table-cell">{activity.time}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                            {activity.detailsIcon}
-                          <div>
-                            <p className="font-medium">{activity.details}</p>
-                            <p className="text-right text-muted-foreground text-sm md:hidden">{activity.detailsTime}</p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right text-muted-foreground hidden md:table-cell">{activity.detailsTime}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Bottom Row Cards */}
+        <div className="lg:col-span-5">
+            <Card>
+              <CardHeader>
+                <CardTitle>Stake Tokens</CardTitle>
+              </CardHeader>
+              <CardContent className="flex items-center justify-center p-6">
+                 <Button size="lg" className="w-full">Stake Tokens</Button>
+              </CardContent>
+            </Card>
+        </div>
+        <div className="lg:col-span-7">
+            <Card>
+              <CardHeader>
+                 <CardTitle>Recent Activity</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableBody>
+                      {recentActivity.map((activity, index) => (
+                        <TableRow key={index} className="[&_td]:py-4">
+                          <TableCell>
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 bg-muted rounded-full">
+                                {activity.icon}
+                              </div>
+                              <div>
+                                <p className="font-medium">{activity.type}</p>
+                                <p className="text-muted-foreground text-sm md:hidden">{activity.time}</p>
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-muted-foreground hidden md:table-cell">{activity.time}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-3">
+                                {activity.detailsIcon}
+                              <div>
+                                <p className="font-medium">{activity.details}</p>
+                                <p className="text-right text-muted-foreground text-sm md:hidden">{activity.detailsTime}</p>
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-right text-muted-foreground hidden md:table-cell">{activity.detailsTime}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
+        </div>
       </div>
     </main>
   );
