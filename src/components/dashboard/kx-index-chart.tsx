@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer, // ✅ Make sure this is imported
+  ResponsiveContainer, // ✅ Added import
 } from "recharts"
 
 import {
@@ -57,6 +57,7 @@ const generateChartData = (timeRange: string) => {
       for (let i = 12; i >= 0; i--) {
         const date = new Date(now);
         date.setMonth(now.getMonth() - i);
+        // Ensure some variability month to month
         const monthValue = 150 + (Math.random() - 0.5) * 50 * (i / 12);
         addDataPoint(date, monthValue);
       }
@@ -149,10 +150,11 @@ export function KxIndexChart() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-72 w-full max-w-full overflow-hidden"> {/* ✅ Container properly constrained */}
+        <div className="h-72 w-full max-w-full overflow-hidden"> {/* ✅ Prevent overflow */}
           <ChartContainer key={timeRange} config={chartConfig}>
-            <ResponsiveContainer width="100%" height="100%"> {/* ✅ Wrap chart */}
+            <ResponsiveContainer width="100%" height="100%"> {/* ✅ Wrap AreaChart */}
               <AreaChart
+                accessibilityLayer
                 data={chartData}
                 margin={{
                   left: 12,
