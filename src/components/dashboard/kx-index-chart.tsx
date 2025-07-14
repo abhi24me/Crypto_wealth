@@ -23,6 +23,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button"
+import { KxIndexChartSkeleton } from "./kx-index-chart-skeleton"
 
 const generateChartData = (timeRange: string) => {
   const now = new Date();
@@ -110,8 +111,8 @@ export function KxIndexChart() {
   }, [timeRange, isMounted]);
 
 
-  if (!isMounted || chartData.length === 0) {
-      return null;
+  if (!isMounted) {
+      return <KxIndexChartSkeleton />;
   }
   
   const yDomain = [
@@ -157,9 +158,9 @@ export function KxIndexChart() {
               accessibilityLayer
               data={chartData}
               margin={{
-                left: -20,
+                left: 12,
+                right: 12,
                 top: 20,
-                right: 20,
                 bottom: 10,
               }}
             >
