@@ -93,17 +93,24 @@ export function KxIndexChart() {
   const [timeRange, setTimeRange] = React.useState("1M");
   const [chartData, setChartData] = React.useState<any[]>([]);
   const [currentPrice, setCurrentPrice] = React.useState(0);
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
-    const data = generateChartData(timeRange)
-    setChartData(data)
-    if (data.length > 0) {
-      setCurrentPrice(data[data.length - 1].value)
+    setIsMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (isMounted) {
+      const data = generateChartData(timeRange)
+      setChartData(data)
+      if (data.length > 0) {
+        setCurrentPrice(data[data.length - 1].value)
+      }
     }
-  }, [timeRange]);
+  }, [timeRange, isMounted]);
 
 
-  if (chartData.length === 0) {
+  if (!isMounted || chartData.length === 0) {
       return null;
   }
   
@@ -145,7 +152,7 @@ export function KxIndexChart() {
       </CardHeader>
       <CardContent>
         <div className="h-72 w-full">
-          <ChartContainer config={chartConfig}>
+          <ChartContainer key={timeRange} config={chartConfig}>
             <AreaChart
               accessibilityLayer
               data={chartData}
