@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -9,6 +8,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  ResponsiveContainer, // ✅ Make sure this is imported
 } from "recharts"
 
 import {
@@ -57,16 +57,15 @@ const generateChartData = (timeRange: string) => {
       for (let i = 12; i >= 0; i--) {
         const date = new Date(now);
         date.setMonth(now.getMonth() - i);
-        // Ensure some variability month to month
-        const monthValue = 150 + (Math.random() - 0.5) * 50 * (i/12);
+        const monthValue = 150 + (Math.random() - 0.5) * 50 * (i / 12);
         addDataPoint(date, monthValue);
       }
       break;
     case "ALL":
-       for (let i = 36; i >= 0; i--) {
+      for (let i = 36; i >= 0; i--) {
         const date = new Date(now);
         date.setMonth(now.getMonth() - i);
-        const allValue = 100 + (Math.random()) * 80 * (i/36);
+        const allValue = 100 + Math.random() * 80 * (i / 36);
         addDataPoint(date, allValue);
       }
       break;
@@ -81,7 +80,6 @@ const generateChartData = (timeRange: string) => {
   }
   return data;
 };
-
 
 const chartConfig = {
   value: {
@@ -110,11 +108,10 @@ export function KxIndexChart() {
     }
   }, [timeRange, isMounted]);
 
-
   if (!isMounted) {
-      return <KxIndexChartSkeleton />;
+    return <KxIndexChartSkeleton />;
   }
-  
+
   const yDomain = [
     Math.min(...chartData.map((d) => d.value)) * 0.95,
     Math.max(...chartData.map((d) => d.value)) * 1.05,
@@ -137,7 +134,7 @@ export function KxIndexChart() {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     }
   };
-  
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -148,87 +145,86 @@ export function KxIndexChart() {
           </CardDescription>
         </div>
         <div className="flex items-baseline space-x-2">
-            <p className="text-3xl font-bold tracking-tight">${currentPrice.toFixed(2)}</p>
+          <p className="text-3xl font-bold tracking-tight">${currentPrice.toFixed(2)}</p>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-72 w-full">
+        <div className="h-72 w-full max-w-full overflow-hidden"> {/* ✅ Container properly constrained */}
           <ChartContainer key={timeRange} config={chartConfig}>
-            <AreaChart
-              accessibilityLayer
-              data={chartData}
-              margin={{
-                left: 12,
-                right: 12,
-                top: 20,
-                bottom: 10,
-              }}
-            >
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis
-                dataKey="date"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={formatXAxis}
-              />
-              <YAxis
-                domain={yDomain}
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => `$${value.toFixed(0)}`}
+            <ResponsiveContainer width="100%" height="100%"> {/* ✅ Wrap chart */}
+              <AreaChart
+                data={chartData}
+                margin={{
+                  left: 12,
+                  right: 12,
+                  top: 20,
+                  bottom: 10,
+                }}
+              >
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={formatXAxis}
                 />
-
-              <Tooltip
-                cursor={true}
-                content={<ChartTooltipContent 
-                    indicator="line" 
-                    labelFormatter={(label, payload) => {
+                <YAxis
+                  domain={yDomain}
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => `$${value.toFixed(0)}`}
+                />
+                <Tooltip
+                  cursor={true}
+                  content={
+                    <ChartTooltipContent
+                      indicator="line"
+                      labelFormatter={(label, payload) => {
                         if (payload && payload.length > 0) {
-                            return new Date(payload[0].payload.date).toLocaleString('en-US', {
-                                month: 'short',
-                                day: 'numeric',
-                                year: 'numeric',
-                                hour: 'numeric',
-                                minute: '2-digit'
-                            });
+                          return new Date(payload[0].payload.date).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "2-digit",
+                          });
                         }
                         return label;
-                    }}
-                />}
-              />
-              <defs>
+                      }}
+                    />
+                  }
+                />
+                <defs>
                   <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop
-                      offset="5%"
-                      stopColor="var(--color-value)"
-                      stopOpacity={0.8}
-                    />
-                    <stop
-                      offset="95%"
-                      stopColor="var(--color-value)"
-                      stopOpacity={0.1}
-                    />
+                    <stop offset="5%" stopColor="var(--color-value)" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="var(--color-value)" stopOpacity={0.1} />
                   </linearGradient>
-              </defs>
-              <Area
-                dataKey="value"
-                type="monotone"
-                fill="url(#fillValue)"
-                stroke="var(--color-value)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </AreaChart>
+                </defs>
+                <Area
+                  dataKey="value"
+                  type="monotone"
+                  fill="url(#fillValue)"
+                  stroke="var(--color-value)"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </ChartContainer>
         </div>
         <div className="flex justify-end space-x-2 mt-4">
-            {["1D", "1W", "1M", "1Y", "ALL"].map((range) => (
-                <Button key={range} variant={timeRange === range ? "default" : "outline"} size="sm" onClick={() => setTimeRange(range)}>
-                    {range}
-                </Button>
-            ))}
+          {["1D", "1W", "1M", "1Y", "ALL"].map((range) => (
+            <Button
+              key={range}
+              variant={timeRange === range ? "default" : "outline"}
+              size="sm"
+              onClick={() => setTimeRange(range)}
+            >
+              {range}
+            </Button>
+          ))}
         </div>
       </CardContent>
     </Card>
