@@ -10,7 +10,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
@@ -40,7 +39,8 @@ export default function DashboardPage() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-        {/* Top Row Cards */}
+        
+        {/* Top Row */}
         <div className="lg:col-span-3">
             <Card>
               <CardHeader>
@@ -68,15 +68,15 @@ export default function DashboardPage() {
             </Card>
         </div>
         
-        {/* Empty columns for spacing on large screens */}
+        {/* This empty div helps push the next items to the new row on large screens */}
         <div className="hidden lg:block lg:col-span-6"></div>
-        
-        {/* Main Chart */}
+
+        {/* Middle Row (Chart) */}
         <div className="col-span-1 md:col-span-2 lg:col-span-12">
             <KxIndexChartDynamic />
         </div>
 
-        {/* Bottom Row Cards */}
+        {/* Bottom Row */}
         <div className="lg:col-span-5">
             <Card>
               <CardHeader>
@@ -128,6 +128,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
         </div>
+
       </div>
     </main>
   );
